@@ -1,3 +1,4 @@
+/* eslint-disable default-case */
 /* eslint-disable no-useless-constructor */
 import React, { Component } from "react";
 import "./Calculator.css";
@@ -30,6 +31,7 @@ export default class Calculator extends Component {
     }
 
     setOperation(operation) {
+
         if(this.state.current === 0) {
             this.setState({operation, current: 1, clearDisplay: true});
         } else {
@@ -38,12 +40,27 @@ export default class Calculator extends Component {
 
             const values = [...this.state.values]
 
-            try {
-                values[0] = eval(`${values[0]} ${currentOperation} ${values[1]}`);
-            } catch (e) {
-                values[0] = this.state.values[0];
-                
+            switch(currentOperation) {
+                case '+':
+                    values[0] = values[0] + values[1]
+                break;
+                case '-':
+                    values[0] = values[0] - values[1]
+                break;
+                case '*':
+                    values[0] = values[0] * values[1]
+                break;
+                case '/':
+                    values[0] = values[0] / values[1]
+                break;
             }
+
+            // try {
+            //     values[0] = eval(`${values[0]} ${currentOperation} ${values[1]}`);
+            // } catch (e) {
+            //     values[0] = this.state.values[0];
+                
+            // }
 
             values[1] = 0;
 
